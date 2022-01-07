@@ -6,7 +6,7 @@ import {
   OwnershipTransferred,
   PriceChanged,
 } from "../generated/templates/NFTEdition/NFTEdition";
-import { ethereum } from "@graphprotocol/graph-ts";
+import { Address, ethereum } from "@graphprotocol/graph-ts";
 
 function makeTransaction(txn: ethereum.Event): string {
   const txnInfo = new TransactionInfo(txn.transaction.hash.toHex());
@@ -15,6 +15,20 @@ function makeTransaction(txn: ethereum.Event): string {
   txnInfo.save();
 
   return txnInfo.id;
+}
+
+function setupEdition(edition: NFTEdition, address: Address): void {
+  const editionContract = NFTEditionContract.bind(address);
+
+  const uris = editionContract.getURIs();
+  edition.animationURI = uris.value0;
+  edition.animationHash = uris.value1;
+  edition.imageURI = uris.value2;
+  edition.imageHash = uris.value3;
+
+  edition.name = editionContract.name();
+  edition.symbol = editionContract.symbol();
+  edition.salePrice = editionContract.salePrice();
 }
 
 export function handleCreatedEdition(event: CreatedEdition): void {
@@ -30,24 +44,14 @@ export function handleCreatedEdition(event: CreatedEdition): void {
 
   NFTEditionTemplate.create(event.params.editionContractAddress);
 
+  setupEdition(newEdition, event.params.editionContractAddress);
+
   newEdition.save();
 }
 
 export function handleInitEdition(event: OwnershipTransferred): void {
   const edition = NFTEdition.load(event.address.toHex())!;
-
-  const editionContract = NFTEditionContract.bind(event.address);
-
-  const uris = editionContract.getURIs();
-  edition.animationURI = uris.value0;
-  edition.animationHash = uris.value1;
-  edition.imageURI = uris.value2;
-  edition.imageHash = uris.value3;
-
-  edition.name = editionContract.name();
-  edition.symbol = editionContract.symbol();
-  edition.salePrice = editionContract.salePrice();
-
+  setupEdition(edition, event.address);
   edition.save();
 }
 
