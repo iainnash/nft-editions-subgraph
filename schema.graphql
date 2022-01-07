@@ -1,6 +1,40 @@
-type ExampleEntity @entity {
+type TransactionInfo @entity {
   id: ID!
-  count: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+}
+
+type NFTEdition @entity {
+  id: ID!
+  editionSize: BigInt!
   editionId: BigInt! # uint256
   creator: Bytes! # address
+  address: Bytes! # address
+  name: String!
+  symbol: String!
+
+  numberCanMint: BigInt!
+  salePrice: BigInt!
+  totalSupply: BigInt!
+
+  imageURI: String!
+  imageHash: Bytes!
+  animationURI: String!
+  animationHash: Bytes!
+
+  txn: TransactionInfo!
+}
+
+type NFTEditionPurchase @entity {
+  id: ID!
+  price: BigInt!
+  to: Bytes!
+  txn: TransactionInfo!
+}
+
+type NFTEditionTransfer @entity {
+  id: ID!
+  to: Bytes! # from address for transfer
+  from: Bytes! # to address for transfer
+  txn: TransactionInfo!
 }
