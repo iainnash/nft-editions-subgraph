@@ -7,7 +7,8 @@
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ iainnash/nft-editions-subgraph-polygon",
     "create-local": "graph create --node http://localhost:8020/ iainnash/nft-editions-subgraph-polygon",
     "remove-local": "graph remove --node http://localhost:8020/ iainnash/nft-editions-subgraph-polygon",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 iainnash/nft-editions-subgraph-polygon"
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 iainnash/nft-editions-subgraph-polygon",
+    "deploy-mainnet": "graph deploy --studio nft-editions"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.25.1",

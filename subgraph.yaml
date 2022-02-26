@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: SingleEditionMintableCreator
-    network: matic
+    network: mainnet
     source:
-      address: "0x4500590AfC7f12575d613457aF01F06b1eEE57a3"
+      address: "0x91A8713155758d410DFAc33a63E193AE3E89F909"
       abi: SingleEditionMintableCreator
-      startBlock: 22719410
+      startBlock: 13443230
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -25,7 +25,7 @@ dataSources:
 templates:
   - name: NFTEdition
     kind: ethereum/contract
-    network: matic
+    network: mainnet
     source:
       abi: NFTEdition
     mapping:
