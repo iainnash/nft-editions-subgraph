@@ -18,6 +18,8 @@ dataSources:
       abis:
         - name: SingleEditionMintableCreator
           file: ./abis/SingleEditionMintableCreator.json
+        - name: NFTEdition
+          file: ./abis/NFTEdition.json
       eventHandlers:
         - event: CreatedEdition(indexed uint256,indexed address,uint256,address)
           handler: handleCreatedEdition
